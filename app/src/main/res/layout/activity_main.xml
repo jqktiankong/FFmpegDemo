@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nv_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/nv_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/bt_urlprotocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="urlprotocol"
+                app:layout_constraintEnd_toStartOf="@id/bt_avformat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bt_avformat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="avformat"
+                app:layout_constraintEnd_toStartOf="@id/bt_avcodec"
+                app:layout_constraintStart_toEndOf="@id/bt_urlprotocol"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bt_avcodec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="avcodec"
+                app:layout_constraintEnd_toStartOf="@id/bt_avfilter"
+                app:layout_constraintStart_toEndOf="@id/bt_avformat"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bt_avfilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="avfilter"
+                app:layout_constraintEnd_toStartOf="@id/bt_configuration"
+                app:layout_constraintStart_toEndOf="@id/bt_avcodec"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bt_configuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="configuration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/bt_avfilter"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nv_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nv_top">
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
