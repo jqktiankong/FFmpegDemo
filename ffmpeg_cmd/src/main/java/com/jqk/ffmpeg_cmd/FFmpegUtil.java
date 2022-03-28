@@ -6,7 +6,7 @@ import android.util.Log;
 public class FFmpegUtil {
     private static final String TAG = "FFmpegUtil";
 
-    public static void execCmd(CmdList cmd, long duration, final OnVideoProcessListener listener) {
+    public static void execCmd(CmdList cmd, int duration, final OnVideoProcessListener listener) {
         String[] cmds = cmd.toArray(new String[0]);
         Log.i(TAG, "cmd:" + cmd);
 

@@ -1,19 +1,20 @@
 package com.jqk.ffmpeg_cmd;
 
+import android.annotation.SuppressLint;
+
 public class FFmpegCmd {
-    static
-    {
+    static {
         System.loadLibrary("ffmpeg-cmd");
     }
 
     private static OnCmdExecListener sOnCmdExecListener;
-    private static long sDuration;
+    private static int sDuration;
 
     public static native int exec(int argc, String[] argv);
 
     public static native void exit();
 
-    public static void exec(String[] cmds, long duration, OnCmdExecListener listener) {
+    public static void exec(String[] cmds, int duration, OnCmdExecListener listener) {
         sOnCmdExecListener = listener;
         sDuration = duration;
         exec(cmds.length, cmds);
@@ -25,7 +26,7 @@ public class FFmpegCmd {
     public static void onExecuted(int ret) {
         if (sOnCmdExecListener != null) {
             if (ret == 0) {
-                sOnCmdExecListener.onProgress(sDuration);
+                sOnCmdExecListener.onProgress(1.0f);
                 sOnCmdExecListener.onSuccess();
             } else {
                 sOnCmdExecListener.onFailure();
@@ -36,10 +37,20 @@ public class FFmpegCmd {
     /**
      * FFmpeg执行进度回调，由C代码调用
      */
-    public static void onProgress(float progress) {
+    @SuppressLint("DefaultLocale")
+    public static void onProgress(int duration) {
         if (sOnCmdExecListener != null) {
             if (sDuration != 0) {
-                sOnCmdExecListener.onProgress(progress / (sDuration / 1000) * 0.95f);
+                float progress = 0;
+
+                if (duration >= sDuration) {
+                    progress = 1.0f;
+                } else {
+                    String result = String.format("%.2f", (float) duration / sDuration);
+                    progress = Float.parseFloat(result);
+                }
+
+                sOnCmdExecListener.onProgress(progress);
             }
         }
     }

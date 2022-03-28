@@ -15,4 +15,4 @@ JNIEXPORT void JNICALL Java_com_jqk_ffmpeg_1cmd_FFmpegCmd_exit(JNIEnv *, jclass)
 #endif
 #endif
 
-void ffmpeg_progress(float progress);
+void ffmpeg_progress(int progress);

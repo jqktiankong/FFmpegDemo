@@ -39,13 +39,13 @@ void callJavaMethod(JNIEnv *env, jclass clazz, int ret) {
     (*env)->CallStaticVoidMethod(env, clazz, methodID, ret);
 }
 
-void callJavaMethodProgress(JNIEnv *env, jclass clazz, float ret) {
+void callJavaMethodProgress(JNIEnv *env, jclass clazz, int ret) {
     if (clazz == NULL) {
         LOGE("---------------clazz isNULL---------------");
         return;
     }
     //获取方法ID (I)V指的是方法签名 通过javap -s -public FFmpegCmd 命令生成
-    jmethodID methodID = (*env)->GetStaticMethodID(env, clazz, "onProgress", "(F)V");
+    jmethodID methodID = (*env)->GetStaticMethodID(env, clazz, "onProgress", "(I)V");
     if (methodID == NULL) {
         LOGE("---------------methodID isNULL---------------");
         return;
@@ -67,10 +67,10 @@ static void ffmpeg_callback(int ret) {
     (*jvm)->DetachCurrentThread(jvm);
 }
 
-void ffmpeg_progress(float progress) {
+void ffmpeg_progress(int duration) {
     JNIEnv *env;
     (*jvm)->AttachCurrentThread(jvm, (void **) &env, NULL);
-    callJavaMethodProgress(env, m_clazz, progress);
+    callJavaMethodProgress(env, m_clazz, duration);
     (*jvm)->DetachCurrentThread(jvm);
 }
 
